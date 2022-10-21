@@ -1,0 +1,36 @@
+{
+    "name": "raison/easy-tts-laravel",
+    "description": "The easiest way to use tts",
+    "license": "MIT",
+    "keywords": [
+        "tts",
+        "baidu",
+        "ali",
+        "xufe",
+        "tencent",
+        "tts-sdk",
+        "sdk"
+    ],
+    "authors": [
+        {
+            "name": "王瑀轩",
+            "email": "xuan96124@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.4",
+        "guzzlehttp/guzzle": "^6.3||^7.0",
+        "illuminate/support": "^5.2|^6|^7|^8",
+        "alibabacloud/client": ">=1.5.31",
+        "tencentcloud/tts": "^3.0",
+        "textalk/websocket": "^1.5",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "EasyTts\\" : "src/"
+        }
+    }
+}
