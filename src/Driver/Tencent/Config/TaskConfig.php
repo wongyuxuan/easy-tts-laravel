@@ -38,6 +38,7 @@ class TaskConfig extends CreateTtsTaskRequest
         $this->SampleRate = $config['SampleRate'];
         $this->Codec = $config['Codec'];
         $this->VoiceoverDialogueSplit = $config['VoiceoverDialogueSplit'];
+        !empty($config['CallbackUrl']) && $this->CallbackUrl = $config['CallbackUrl'];
 
         parent::__construct();
     }

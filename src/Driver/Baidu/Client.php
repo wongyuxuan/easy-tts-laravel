@@ -59,7 +59,7 @@ class Client extends TtsClient
      * @param string $text
      * @return string
      */
-    public function createTask(string $text): string
+    public function createTask(string $text)
     {
         $body = (new TaskConfig($this->getRequestConfig()))->toArray();
         $body += [
@@ -70,19 +70,23 @@ class Client extends TtsClient
         ];
 
         $httpHandler = new HttpHandler();
-        return $httpHandler->json(self::TASK_URL, $body, JSON_UNESCAPED_UNICODE, $query)->getBody()->getContents();
+        $res = $httpHandler->json(self::TASK_URL, $body, JSON_UNESCAPED_UNICODE, $query);
+
+        return $httpHandler->parseJSON($res);
     }
 
-    public function fetchTaskResult(array $task_ids)
+    public function fetchTaskResult($taskId)
     {
         $body = [
-            'task_ids' => $task_ids
+            'task_ids' => [$taskId]
         ];
         $query = [
             'access_token' => $this->auth->getAccessToken()
         ];
 
         $httpHandler = new HttpHandler();
-        return $httpHandler->json(self::TASK_REQUEST_URL, $body, JSON_UNESCAPED_UNICODE, $query)->getBody()->getContents();
+        $res = $httpHandler->json(self::TASK_REQUEST_URL, $body, JSON_UNESCAPED_UNICODE, $query);
+
+        return $httpHandler->parseJSON($res);
     }
 }

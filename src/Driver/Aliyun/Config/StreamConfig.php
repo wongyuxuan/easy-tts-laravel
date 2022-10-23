@@ -13,7 +13,7 @@ namespace EasyTts\Driver\Aliyun\Config;
 
 use EasyTts\TtsConfigInterface;
 
-class TtsConfig implements TtsConfigInterface
+class StreamConfig implements TtsConfigInterface
 {
     /**
      * @var int 语速

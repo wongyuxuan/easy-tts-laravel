@@ -34,7 +34,6 @@ class Client extends TtsClient
      * 文字转语音----流式处理
      * @param string $text
      * @return mixed|string
-     * @throws \HttpException
      */
     public function textToSpeechStream(string $text)
     {
@@ -57,5 +56,15 @@ class Client extends TtsClient
         ];
 
         return (new WsHandler($uri, json_encode($input)))->sendAndReceive()->getBody()->getContents();
+    }
+
+    public function createTask(string $text)
+    {
+        throw new \RuntimeException('This request is not supported');
+    }
+
+    public function fetchTaskResult($task_id)
+    {
+        throw new \RuntimeException('This request is not supported');
     }
 }

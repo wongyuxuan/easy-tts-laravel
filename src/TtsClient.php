@@ -50,4 +50,14 @@ abstract class TtsClient
      * @return mixed
      */
     abstract function textToSpeechStream(string $text);
+
+    /**
+     * 创建异步任务
+     */
+    abstract function createTask(string $text);
+
+    /**
+     * 查询任务结果
+     */
+    abstract function fetchTaskResult($taskId);
 }

@@ -33,9 +33,22 @@ class Client extends TtsClient
         $this->credential = new Credential($accessKeyId, $accessKeySecret);
     }
 
-    /**
-     * 文字转语音----流式处理
-     */
+    function textToSpeechStream(string $text)
+    {
+        $httpProfile = new HttpProfile();
+        $httpProfile->setReqMethod("POST");
+        $httpProfile->setReqTimeout(30);
+
+        $clientProfile = new ClientProfile();
+        $clientProfile->setSignMethod("TC3-HMAC-SHA256");  // 指定签名算法(默认为HmacSHA256)
+        $clientProfile->setHttpProfile($httpProfile);
+
+        $ttsConfig = (new StreamConfig($this->getRequestConfig()));
+        $ttsConfig->setText($text);
+        $client = new TencentTtsClient($this->credential, 'ap-shanghai', $clientProfile);
+        return $client->TextToVoice($ttsConfig);
+    }
+
     public function createTask(string $text)
     {
         $httpProfile = new HttpProfile();
@@ -49,7 +62,7 @@ class Client extends TtsClient
         $ttsConfig = (new TaskConfig($this->getRequestConfig()));
         $ttsConfig->setText($text);
         $client = new TencentTtsClient($this->credential, null, $clientProfile);
-        return $client->CreateTtsTask($ttsConfig);
+        return $client->CreateTtsTask($ttsConfig)->getData()->getTaskId();
     }
 
     public function fetchTaskResult($taskId)
@@ -67,22 +80,6 @@ class Client extends TtsClient
         $req = new DescribeTtsTaskStatusRequest();
         $req->setTaskId($taskId);
 
-        return $client->DescribeTtsTaskStatus($req);
-    }
-
-    function textToSpeechStream(string $text)
-    {
-        $httpProfile = new HttpProfile();
-        $httpProfile->setReqMethod("POST");
-        $httpProfile->setReqTimeout(30);
-
-        $clientProfile = new ClientProfile();
-        $clientProfile->setSignMethod("TC3-HMAC-SHA256");  // 指定签名算法(默认为HmacSHA256)
-        $clientProfile->setHttpProfile($httpProfile);
-
-        $ttsConfig = (new StreamConfig($this->getRequestConfig()));
-        $ttsConfig->setText($text);
-        $client = new TencentTtsClient($this->credential, 'ap-shanghai', $clientProfile);
-        return $client->TextToVoice($ttsConfig);
+        return json_decode($client->DescribeTtsTaskStatus($req)->toJsonString(), true);
     }
 }

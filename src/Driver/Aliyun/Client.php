@@ -11,10 +11,10 @@
 
 namespace EasyTts\Driver\Aliyun;
 
-use EasyTts\Driver\Aliyun\Config\TtsConfig;
+use EasyTts\Driver\Aliyun\Config\StreamConfig;
+use EasyTts\Driver\Aliyun\Config\TaskConfig;
 use EasyTts\Handler\HttpHandler;
 use EasyTts\TtsClient;
-use HttpException;
 
 class Client extends TtsClient
 {
@@ -35,7 +35,7 @@ class Client extends TtsClient
 
     public function textToSpeechStream(string $text)
     {
-        $body = (new TtsConfig($this->getRequestConfig()))->toArray();
+        $body = (new StreamConfig($this->getRequestConfig()))->toArray();
         $body += [
             'appkey' => $this->appKey,
             'token' => $this->auth->getAccessToken(),
@@ -47,11 +47,11 @@ class Client extends TtsClient
     }
 
     /**
-     * @throws HttpException
+     * 创建异步任务
      */
-    public function createTask($text)
+    public function createTask(string $text)
     {
-        $config = (new TtsConfig($this->getRequestConfig()))->toArray();
+        $config = (new TaskConfig($this->getRequestConfig()))->toArray();
         $config += [
             'text' => $text
         ];
@@ -74,17 +74,15 @@ class Client extends TtsClient
 
     /**
      * 查询任务结果
-     * @param $task_id
-     * @param $request_id
+     * @param string $taskId
      * @return false|mixed
      */
-    public function fetchTaskResult($task_id, $request_id)
+    public function fetchTaskResult($taskId)
     {
         $options = [
             'appkey' => $this->appKey,
-            'task_id' => $task_id,
+            'task_id' => $taskId,
             'token' => $this->auth->getAccessToken(),
-            'request_id' => $request_id
         ];
         $httpHandler = new HttpHandler();
         $res = $httpHandler->get(self::TASK_URL, $options);
