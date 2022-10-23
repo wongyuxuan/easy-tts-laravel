@@ -34,6 +34,22 @@ $ composer require raison/easy-tts-laravel
 ```
 
 ## 各平台配置说明
+
+### 在 config/app.php 文件中设置服务提供者和别名。
+
+```php
+'providers' => [
+    ....
+    EasyTts\Providers\LaravelServiceProvider::class,
+    ....
+],
+```
+###请使用下面这条命令来发布配置文件
+
+```shell
+ php artisan vendor:publish --provider="EasyTts\Providers\LaravelServiceProvider"
+```
+
 ### [科大讯飞](https://www.xfyun.cn/services/online_tts)
 
 ```php
@@ -211,5 +227,7 @@ $task_id = (new TtsManager())->client('baidu')->setRequestConfig($config)->creat
 $res = (new TtsManager())->client('baidu')->fetchTaskResult($task_id);
 ```
 
+
+## License
 
 MIT
