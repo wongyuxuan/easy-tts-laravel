@@ -1,9 +1,10 @@
 <h1 align="center">Easy Tts For Laravel</h1>
 
 <p align="center"> 一款满足你的多种TTS平台调用组件</p>
-
 <p align="center">
-<a href="https://packagist.org/packages/raison/easy-tts-laravel"><img src="https://poser.pugx.org/overtrue/easy-sms/license" alt="License"></a>
+<a href="https://packagist.org/packages/raison/easy-tts-laravel"><img src="http://poser.pugx.org/raison/easy-tts-laravel/downloads"></a>
+<a href="https://packagist.org/packages/raison/easy-tts-laravel"><img src="http://poser.pugx.org/raison/easy-tts-laravel/license"></a>
+<a href="https://packagist.org/packages/raison/easy-tts-laravel"><img src="http://poser.pugx.org/raison/easy-tts-laravel/require/php"></a>
 </p>
 
 
